@@ -1,6 +1,12 @@
 # MelodyFoundations
 Web 3 Melody Music Platform, DBUC Final Project
 
+# Git starter code
+To update to the latest code commit, do the following: 
+1. `git stash` 
+2. `git pull --rebase`
+3. `git stash pop`
+
 # Project Structure
 ## 1. NFTMarketPlace.sol
 The main contract that the 
