@@ -1,0 +1,13 @@
+# Dependency Dirs 
+node_modules/ 
+
+# Build artifacts 
+dist/
+
+# Editor dirs
+.vscode/
+.idea/
+
+# OS and Env
+.env
+.DS_Store
