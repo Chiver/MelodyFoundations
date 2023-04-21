@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>POST Request Example</title>
+</head>
+<body>
+    <h1>POST Request Example</h1>
+    <form id="example-form">
+        <label for="music_path">Music Path:</label>
+        <input type="text" id="music_path" name="music_path">
+        <br>
+        <label for="nft_name">Music Name:</label>
+        <input type="text" id="nft_name" name="nft_name">
+        <br>
+        <label for="nft_description">Music Description:</label>
+        <input type="text" id="nft_description" name="nft_description">
+        <br>
+        <button type="submit">Store NFT</button>
+    </form>
+
+    <script>
+        document.getElementById('example-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const music_path = document.getElementById('music_path').value;
+            const nft_name = document.getElementById('nft_name').value;
+            const nft_description = document.getElementById('nft_description').value;
+
+            const response = await fetch('http://localhost:3007/store_nft', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ music_path, nft_name, nft_description})
+            });
+
+            const data = await response.text();
+            document.getElementById('output').innerText = data;
+        });
+    </script>
+
+    <pre id="output"></pre>
+</body>
+</html>
+

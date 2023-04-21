@@ -19,6 +19,9 @@ The main contract that the
 MelodyNFT.deployed().then(function(x){ nft = x; });
 MelodyMarketplace.deployed().then(function(x){ marketplace = x; });
 ```
+- Start IPFS
+`ipfs daemon`
+> If not yet initialized, run `ipfs init`
 
 # Develop Logs
 - Initialize Truffle Project 
@@ -36,6 +39,8 @@ MelodyMarketplace.deployed().then(function(x){ marketplace = x; });
 - Install HDWallet Provider
   - @truffle/hdwallet-provider is an npm package that provides a convenient and easy-to-use way to sign transactions and manage accounts for Ethereum-based blockchains in the context of Truffle. It is especially useful when deploying smart contracts to public networks like Ethereum Mainnet, Ropsten, or other testnets, and when you want to use external wallets like MetaMask, Ledger, or Trezor.
 `npm install @truffle/hdwallet-provider@1.2.3`
+- Install body parser for parsing request body in express
+`npm install express body-parser`
 
 
 # Bibliography

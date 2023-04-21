@@ -27,6 +27,9 @@ contract MelodyMarketplace {
         nftContract = IERC721(_nftContractAddress);
     }
 
+    /*
+     * @brief List the token for public trading. 
+     */
     function listToken(uint256 _tokenId, uint256 _price) external {
         require(nftContract.ownerOf(_tokenId) == msg.sender, "Not the token owner");
         nftContract.approve(address(this), _tokenId);
@@ -40,6 +43,9 @@ contract MelodyMarketplace {
         });
     }
 
+    /*
+     * @brief Cancel the listing for an NFT. 
+     */
     function cancelListing(uint256 _listingId) external {
         require(listings[_listingId].seller == msg.sender, "Not the listing owner");
         require(listings[_listingId].active, "Listing is not active");
@@ -48,15 +54,24 @@ contract MelodyMarketplace {
         listings[_listingId].active = false;
     }
 
+    /*
+     * @brief Buy a listed token. 
+    */ 
     function buyToken(uint256 _listingId) external payable {
         require(listings[_listingId].active, "Listing is not active");
         require(msg.value >= listings[_listingId].price, "Insufficient funds");
 
         nftContract.transferFrom(listings[_listingId].seller, msg.sender, listings[_listingId].tokenId);
+        // Transfers Ether from function caller's address to the seller's address. 
         payable(listings[_listingId].seller).transfer(msg.value);
+        // Sets active to false so that no other people can instantly buy the NFT.
+        // Need owner to make that active for further trade. 
         listings[_listingId].active = false;
     }
 
+    /*
+     * @brief Change price of NFT if you are owner. 
+    */
     function changePrice(uint256 _listingId, uint256 _newPrice) external {
         require(listings[_listingId].seller == msg.sender, "Not the listing owner");
         require(listings[_listingId].active, "Listing is not active");
