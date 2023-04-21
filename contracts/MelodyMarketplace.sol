@@ -80,4 +80,13 @@ contract MelodyMarketplace {
     }
 
     // Implement auction-related functions
+
+    function getListingByTokenId(uint256 tokenId) public view returns (uint256 listingId, address seller, uint256 price, bool isActive) {
+        for (uint256 i = 0; i < nextListingId; i++) {
+            if (listings[i].tokenId == tokenId) {
+                return (i, listings[i].seller, listings[i].price, listings[i].active);
+            }
+        }
+        revert("Listing not found for the given token ID");
+    }
 }

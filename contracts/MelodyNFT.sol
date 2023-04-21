@@ -15,6 +15,12 @@ contract MelodyNFT is ERC721, ERC721URIStorage {
 
     constructor() ERC721("MelodyNFT", "MNFT") {}
 
+
+    /**
+     * Call example:
+     * let result = await mnft.mint("YOUR ADDRESS", "IPFS STORAGE PATH")
+     * result 
+     */
     function mint(address recipient, string memory tokenURI) public returns (uint256) {
         _tokenIds.increment();
 
@@ -33,5 +39,20 @@ contract MelodyNFT is ERC721, ERC721URIStorage {
     // This function is necessary to properly burn tokens since we're using ERC721URIStorage
     function _burn(uint256 tokenId) internal virtual override(ERC721, ERC721URIStorage) {
         ERC721URIStorage._burn(tokenId);
+    }
+
+    function tokensOfOwner(address owner) external view returns (uint256[] memory) {
+        uint256 tokenCount = balanceOf(owner);
+        uint256[] memory tokenIds = new uint256[](tokenCount);
+
+        uint256 index = 0;
+        for (uint256 i = 1; i < _tokenIds.current(); i++) {
+            if (_exists(i) && ownerOf(i) == owner) {
+                tokenIds[index] = i;
+                index++;
+            }
+        }
+
+        return tokenIds;
     }
 }

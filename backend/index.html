@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>POST Request Example</title>
+    <title>Melody Networks</title>
 </head>
 <body>
-    <h1>POST Request Example</h1>
+    <h1>Minting Music NFTs</h1>
     <form id="example-form">
         <label for="music_path">Music Path:</label>
         <input type="text" id="music_path" name="music_path">
@@ -38,6 +38,12 @@
 
             const data = await response.text();
             document.getElementById('output').innerText = data;
+
+            // [TODO] call the contract function:
+            // For example: let result = await mnft.mint("YOUR ADDRESS", "IPFS STORAGE PATH")
+            
+
+            // By here, it should be alright. 
         });
     </script>
 

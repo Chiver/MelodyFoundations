@@ -1,0 +1,82 @@
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(145deg, #000000, #5e3a81);
+    color: #ffffff;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+}
+
+.project-name {
+    font-size: 2rem;
+    margin: 0;
+    color: #ffffff;
+}
+
+.project-description {
+    color: #cccccc;
+}
+
+.user-container {
+    display: flex;
+    align-items: center;
+}
+
+.user-address {
+    color: #cccccc;
+    margin-right: 10px;
+}
+
+.mint-btn {
+    background-color: #673ab7;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.mint-btn:hover {
+    background-color: #5e35b1;
+}
+
+.nft-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+    padding: 16px;
+}
+
+.nft-item {
+    background-color: #2d2d2d;
+    border-radius: 4px;
+    padding: 16px;
+    text-align: center;
+}
+
+.nft-image {
+    width: 100%;
+    height: auto;
+    border-radius: 4px;
+}
+
+.nft-name, .nft-price, .nft-owner {
+    margin: 8px 0;
+}
+
+.buy-btn {
+    background-color: #673ab7;
+    color: #ffffff;
+    border: none;
+    border-radius: 4px;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.buy-btn:hover {
+    background-color: #5e35b1;
+}
