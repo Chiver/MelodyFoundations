@@ -7,6 +7,17 @@ To update to the latest code commit, do the following:
 2. `git pull --rebase`
 3. `git stash pop`
 
+To update your modifications to the remote branch:
+**Keep yourself updated with remote branch**
+1. `git stash` 
+2. `git pull --rebase`
+3. `git stash pop`
+**Push your code**
+1. `git add .`
+2. `git commit -m "<describe what you did>"`
+3. `git push`
+
+
 # Project Structure
 ## 1. NFTMarketPlace.sol
 The main contract that the 
