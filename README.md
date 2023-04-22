@@ -19,12 +19,43 @@ To update your modifications to the remote branch:
 
 
 # Project Structure
-## 1. NFTMarketPlace.sol
-The main contract that the 
+```
+└── MelodyFoundations
+    ├── README.md
+    ├── apidoc.md
+    ├── backend  
+    │   ├── app.js
+    │   ├── credentials
+    │   ├── index.html
+    │   ├── public
+    │   └── scripts
+    ├── build   
+    │   └── contracts
+    ├── contracts 
+    │   ├── MelodyMarketplace.sol
+    │   ├── MelodyNFT.sol
+    │   └── Migrations.sol
+    ├── migrations
+    │   ├── 1_initial_migration.js
+    │   ├── 2_deploy_melody_nft.js
+    │   └── 3_deploy_melody_marketplace.js
+    ├── package-lock.json
+    ├── package.json
+    ├── test
+    └── truffle-config.js
+```
 
-## 2. MelodyNFT.sol 
+### 1. NFTMarketPlace.sol
+The main contract that controls the trading, minting of NFTs
 
-## 3. FUTURE: MelodyToken.sol
+### 2. MelodyNFT.sol 
+The contract of MelodyNFT (MNFT) which implements ERC-721
+
+### 3. Nodejs Express Backend Service
+Deals with storing music file on IPFS and serving frontend content 
+
+### 4. FUTURE: MelodyToken.sol
+Governence & fans tipping. 
 
 # Deployment
 - Compile and upload contract 
