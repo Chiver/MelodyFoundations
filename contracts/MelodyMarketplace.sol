@@ -34,6 +34,14 @@ contract MelodyMarketplace {
         require(nftContract.ownerOf(_tokenId) == msg.sender, "Not the token owner");
         nftContract.approve(address(this), _tokenId);
 
+        for (uint256 i=0; i<nextListingId; i++) {
+            if(listings[i].tokenId == _tokenId){
+                listings[i].active = true; 
+                listings[i].seller = msg.sender; 
+                listings[i].price = _price; 
+                return; 
+            }
+        }
         nextListingId++;
         listings[nextListingId] = Listing({
             tokenId: _tokenId,
@@ -80,7 +88,6 @@ contract MelodyMarketplace {
     }
 
     // Implement auction-related functions
-
     function getListingByTokenId(uint256 tokenId) public view returns (uint256 listingId, address seller, uint256 price, bool isActive) {
         for (uint256 i = 0; i < nextListingId; i++) {
             if (listings[i].tokenId == tokenId) {
@@ -88,5 +95,16 @@ contract MelodyMarketplace {
             }
         }
         revert("Listing not found for the given token ID");
+    }
+
+    function getAllActiveListings() public view returns (Listing[] memory resultListings) {
+
+        // Create an array to store the active listings
+        resultListings = new Listing[](nextListingId);
+
+        // Populate the activeListings array
+        for (uint256 i = 0; i < nextListingId; i++) {
+            resultListings[i] = listings[i];
+        }
     }
 }
