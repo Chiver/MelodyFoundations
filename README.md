@@ -1,22 +1,10 @@
 # MelodyFoundations
-Web 3 Melody Music Platform, DBUC Final Project
 
-# Git starter code
-To update to the latest code commit, do the following: 
-1. `git stash` 
-2. `git pull --rebase`
-3. `git stash pop`
+> @maintainer: Chiev Wan
+> @collaborator: Raymond Yang
+> If you have any questions regarding usage, contact zwan@andrew.cmu.edu
 
-To update your modifications to the remote branch:
-**Keep yourself updated with remote branch**
-1. `git stash` 
-2. `git pull --rebase`
-3. `git stash pop`
-**Push your code**
-1. `git add .`
-2. `git commit -m "<describe what you did>"`
-3. `git push`
-
+Web 3 Melody Music Platform, DBUC Final Project Team 3
 
 # Project Structure
 ```
@@ -24,15 +12,15 @@ To update your modifications to the remote branch:
     ├── README.md
     ├── apidoc.md
     ├── backend  
-    │   ├── app.js
-    │   ├── credentials
+    │   ├── app.js // Nodejs Backend Service 
+    │   ├── credentials // Music raw files and ipfs medadata files goes here
     │   ├── index.html
     │   ├── public
-    │   └── scripts
+    │   └── scripts // Server executed scripts, including ipfs calls 
     ├── build   
     │   └── contracts
     ├── contracts 
-    │   ├── MelodyMarketplace.sol
+    │   ├── MelodyMarketplace.sol 
     │   ├── MelodyNFT.sol
     │   └── Migrations.sol
     ├── migrations
@@ -45,6 +33,7 @@ To update your modifications to the remote branch:
     └── truffle-config.js
 ```
 
+## Contracts 
 ### 1. NFTMarketPlace.sol
 The main contract that controls the trading, minting of NFTs
 
@@ -55,9 +44,13 @@ The contract of MelodyNFT (MNFT) which implements ERC-721
 Deals with storing music file on IPFS and serving frontend content 
 
 ### 4. FUTURE: MelodyToken.sol
-Governence & fans tipping. 
+Main currency of Melody, governence & fans tipping. 
 
 # Deployment
+- Start Ganache Server `QuickStart`
+- - Start IPFS
+`ipfs daemon`
+> If not yet initialized, run `ipfs init`
 - Compile and upload contract 
 `truffle migrate --reset`
 - Testing with truffle console
@@ -67,18 +60,13 @@ Governence & fans tipping.
 MelodyNFT.deployed().then(function(x){ nft = x; });
 MelodyMarketplace.deployed().then(function(x){ marketplace = x; });
 ```
-- Start IPFS
-`ipfs daemon`
-> If not yet initialized, run `ipfs init`
 
-# Develop Logs
+# Project Dependencies 
 - Initialize Truffle Project 
 `truffle init`
 - Initialize NPM and install dependencies 
 `npm init`
 `npm install dotenv truffle-wallet-provider ethereumjs-wallet`
-
-## Install Dependencies 
 - IPFS installed `https://docs.ipfs.tech/install/command-line/#system-requirements`
 - Openzeppelin Package (For NFT Contracts)
 `npm install @openzeppelin/contracts`
@@ -90,9 +78,8 @@ MelodyMarketplace.deployed().then(function(x){ marketplace = x; });
 - Install body parser for parsing request body in express
 `npm install express body-parser`
 
-
 # Demo Instructions 
-## Start Ganache 
+## Start Ganache & IPFS
 1. Open Ganache
 2. Click Quickstart
 
@@ -101,7 +88,6 @@ MelodyMarketplace.deployed().then(function(x){ marketplace = x; });
 2. Create 2 Contracts on Remix
 3. Deploy `MelodyNFT.sol`
 4. Deploy `MelodyMarketplace.sol` using `MelodyNFT.sol`'s address
-
 
 ## Test out functionalities
 1. Get Alice, Bob, Charlie's account address
@@ -152,7 +138,7 @@ sh ./backend/scripts/store_nft.sh ./backend/credentials/music/sample_music_alice
 	}
 ]
 ```
-7. Now Alice want to list the NFT for trading, we run `listToken(1, 12)`, which lists tokenId of 1 of 12 ETH's price. 
+7. Now Alice want to list the NFT for trading, we run `listToken(1, 12)`, which lists tokenId of 1 of 12 ETH's price. Note that before running listToken, she will need to grand the marketplace contract the right to manipulate her nfts. 
 ```
 [
 	{
@@ -170,13 +156,9 @@ sh ./backend/scripts/store_nft.sh ./backend/credentials/music/sample_music_alice
 	}
 ]
 ```
+8. Now bob wants to buy this nft of tokenId 1, he runs `buyToken()` to transfer the ownership. 
 
-
-
-
-
-
-## Truffle Console 
+## Truffle Console (Not recommended)
 1. Enter truffle
 `truffle console`
 
@@ -186,7 +168,23 @@ var Web3 = require('web3');
 var web3 = new Web3(new Web3.providers.HttpProvider('http://127.0.0.1:7545'));
 web3.isConnected();
 ```
+3. Make function calls on the contract instances. 
 
+# Git Tutorials 
+To update to the latest code commit, do the following: 
+1. `git stash` 
+2. `git pull --rebase`
+3. `git stash pop`
+
+To update your modifications to the remote branch:
+**Keep yourself updated with remote branch**
+1. `git stash` 
+2. `git pull --rebase`
+3. `git stash pop`
+**Push your code**
+1. `git add .`
+2. `git commit -m "<describe what you did>"`
+3. `git push`
 
 # Bibliography
 - https://github.com/mm6/ethereum-lab1
