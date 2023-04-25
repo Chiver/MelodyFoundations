@@ -1,7 +1,9 @@
 # MelodyFoundations
 
 > @maintainer: Chiev Wan
+> 
 > @collaborator: Raymond Yang
+> 
 > If you have any questions regarding usage, contact zwan@andrew.cmu.edu
 
 Web 3 Melody Music Platform, DBUC Final Project Team 3
