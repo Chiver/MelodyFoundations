@@ -9,13 +9,15 @@ import "@openzeppelin/contracts/token/ERC721/IERC721.sol";
 
 contract MelodyMarketplace {
     struct Listing {
-        uint256 tokenId;
-        address seller;
-        uint256 price;
-        bool active;
+        uint256 tokenId; /* Token Identifier */
+        address seller;  /* Token Owner */
+        address creator; /* Token Creator, aka Musician */
+        uint256 price;   /* Sell Price in ETH */
+        bool active;     /* Is tradable */
     }
 
     IERC721 public nftContract;
+    uint256 private platformBalance; 
     uint256 private nextListingId;
     mapping(uint256 => Listing) private listings;
     
@@ -47,7 +49,8 @@ contract MelodyMarketplace {
             tokenId: _tokenId,
             seller: msg.sender,
             price: _price,
-            active: true
+            active: true, 
+            creator: msg.sender
         });
     }
 
@@ -70,8 +73,17 @@ contract MelodyMarketplace {
         require(msg.value >= listings[_listingId].price, "Insufficient funds");
 
         nftContract.transferFrom(listings[_listingId].seller, msg.sender, listings[_listingId].tokenId);
-        // Transfers Ether from function caller's address to the seller's address. 
-        payable(listings[_listingId].seller).transfer(msg.value);
+
+        // Transfers Ether from function caller's account to seller, creator and platform
+        // The split ratio is: 
+        // Seller gets 95%, content creator gets 4%, and platform gets 1%
+        uint256 seller_amount = msg.value * 95 / 100; 
+        uint256 creator_amount = msg.value * 4 / 100; 
+        uint256 platform_amount = msg.value - seller_amount - creator_amount; 
+        payable(listings[_listingId].seller).transfer(seller_amount);
+        payable(listings[_listingId].creator).transfer(creator_amount);
+        platformBalance += platform_amount; 
+
         // Sets active to false so that no other people can instantly buy the NFT.
         // Need owner to make that active for further trade. 
         listings[_listingId].active = false;
@@ -97,7 +109,7 @@ contract MelodyMarketplace {
         revert("Listing not found for the given token ID");
     }
 
-    function getAllActiveListings() public view returns (Listing[] memory resultListings) {
+    function getAllListings() public view returns (Listing[] memory resultListings) {
 
         // Create an array to store the active listings
         resultListings = new Listing[](nextListingId);
@@ -106,5 +118,9 @@ contract MelodyMarketplace {
         for (uint256 i = 0; i < nextListingId; i++) {
             resultListings[i] = listings[i];
         }
+    }
+
+    function getContractBalance() public view returns (uint256) {
+        return address(this).balance;
     }
 }
